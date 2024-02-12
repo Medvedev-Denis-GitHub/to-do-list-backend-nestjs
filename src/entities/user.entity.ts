@@ -1,14 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { UUID } from '../types';
+import { RolesUserInCompany, UUID } from '../types';
 import { Company } from './company.entity';
-
-//todo Более подробные комм-и
-export enum RolesUserInCompany {
-  OWNER = 'owner' /* Владелец компании */,
-  ADMIN = 'admin' /* Создание задач, назначение задач и тд */,
-  MEMBER = 'member' /* Просто участник, трудозатраты, редактирование задачи */,
-  NONE = 'none',
-}
 
 @Entity()
 export class User {
