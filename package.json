@@ -7,24 +7,32 @@
     "build": "nest build",
     "start": "nest start",
     "start:dev": "nest start --watch",
-    "lint:fix": "eslint --ext ts --fix ."
+    "lint:fix": "eslint --ext ts --fix .",
+    "typeorm": "typeorm -d dist/config/orm.config.js",
+    "migration:generate": "yarn run typeorm migration:generate",
+    "migration:run": "yarn run typeorm migration:run",
+    "migration:revert": "yarn run typeorm migration:revert"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@nestjs/cli": "^10.3.1",
     "@nestjs/common": "^10.3.1",
+    "@nestjs/config": "^3.1.1",
     "@nestjs/core": "^10.3.1",
     "@nestjs/platform-express": "^10.3.1",
+    "@nestjs/typeorm": "^10.0.1",
     "@typescript-eslint/eslint-plugin": "^6.20.0",
     "@typescript-eslint/parser": "^6.20.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
+    "pg": "^8.11.3",
     "prettier": "^3.2.5",
     "reflect-metadata": "^0.2.1",
     "rxjs": "^7.8.1",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "typeorm": "^0.3.20"
   },
   "devDependencies": {
     "typescript": "^5.3.3"
