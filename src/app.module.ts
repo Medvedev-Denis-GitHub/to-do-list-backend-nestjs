@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
@@ -26,13 +24,12 @@ import { AuthModule } from './auth/auth.module';
         type: 'postgres',
         logging: false,
         synchronize: false,
-        entities: [User, Company, Task, Project], //'dist/entities/*.js'
-        migrations: ['dist/migrations/**/*.js'],
+        entities: [User, Company, Task, Project],
       }),
       inject: [ConfigService],
     }),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

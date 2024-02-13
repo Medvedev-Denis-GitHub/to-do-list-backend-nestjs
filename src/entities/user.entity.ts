@@ -24,7 +24,7 @@ export class User {
     type: 'varchar',
     length: 25,
   })
-  lastName: string;
+  lastname: string;
 
   @Column()
   password: string;
