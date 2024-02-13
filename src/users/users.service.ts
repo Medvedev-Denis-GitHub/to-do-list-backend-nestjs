@@ -5,6 +5,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { saltRounds } from '../constants';
 import * as bcrypt from 'bcrypt';
+import { ResponseUserDto } from './dto/response-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -13,7 +14,7 @@ export class UsersService {
     private readonly usersRepository: Repository<User>,
   ) {}
 
-  async create(dto: CreateUserDto) {
+  async create(dto: CreateUserDto): Promise<ResponseUserDto> {
     const isExistUser = await this.findByUsername(dto.username);
     if (isExistUser) {
       throw new HttpException('Пользователь с таким username же существует', HttpStatus.CONFLICT);

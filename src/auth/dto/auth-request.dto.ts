@@ -1,7 +1,7 @@
 import { IsOptional, IsString, Length } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateUserDto {
+export class SignInRequestDto {
   @IsOptional()
   @IsString()
   @Length(1, 20)
@@ -11,26 +11,6 @@ export class CreateUserDto {
     description: 'Уникальный Username пользователя',
   })
   username: string;
-
-  @IsOptional()
-  @IsString()
-  @Length(1, 25)
-  @ApiProperty({
-    type: String,
-    example: 'Денис',
-    description: 'Имя пользователя',
-  })
-  firstname: string;
-
-  @IsOptional()
-  @IsString()
-  @Length(1, 25)
-  @ApiProperty({
-    type: String,
-    example: 'Медведев',
-    description: 'Фамилия пользователя',
-  })
-  lastname: string;
 
   @IsOptional()
   @IsString()
