@@ -7,11 +7,13 @@ import { Project } from './entities/project.entity';
 import { Task } from './entities/task.entity';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { CompanyModule } from './company/company.module';
 
 @Module({
   imports: [
     UsersModule,
     AuthModule,
+    CompanyModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],

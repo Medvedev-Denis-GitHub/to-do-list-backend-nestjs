@@ -1,18 +1,16 @@
 import { RolesUserInCompany, UUID } from '../../types';
 import { Company } from '../../entities/company.entity';
-import { IsBoolean, IsEnum, IsOptional, IsString, IsUUID, Length } from 'class-validator';
+import { IsBoolean, IsEnum, IsString, IsUUID, Length } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class ResponseUserDto {
   @IsUUID()
-  @IsOptional()
   @ApiProperty({
     example: '90f1eaf6-08e5-42ae-b5f1-c66c454617cc',
     description: 'Уникальный UUID пользователя в БД',
   })
   id: UUID;
 
-  @IsOptional()
   @IsString()
   @Length(1, 20)
   @ApiProperty({
@@ -22,7 +20,6 @@ export class ResponseUserDto {
   })
   username: string;
 
-  @IsOptional()
   @IsString()
   @Length(1, 25)
   @ApiProperty({
@@ -32,7 +29,6 @@ export class ResponseUserDto {
   })
   firstname: string;
 
-  @IsOptional()
   @IsString()
   @Length(1, 25)
   @ApiProperty({
@@ -42,7 +38,6 @@ export class ResponseUserDto {
   })
   lastname: string;
 
-  @IsOptional()
   @IsString()
   @ApiProperty({
     type: String,
@@ -52,17 +47,15 @@ export class ResponseUserDto {
   password: string;
 
   @IsBoolean()
-  @IsOptional()
   @ApiProperty({
     example: true,
     description: 'Является ли пользователь владельцем компании',
   })
   isOwnerCompany: boolean;
 
-  company: Company;
+  company: Company; //todo swagger
 
   @IsEnum(RolesUserInCompany)
-  @IsOptional()
   @ApiProperty({
     enum: RolesUserInCompany,
     example: RolesUserInCompany.MEMBER,

@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, Relation } from 'typeorm';
 import { RolesUserInCompany, UUID } from '../types';
 import { Company } from './company.entity';
 
@@ -35,8 +35,11 @@ export class User {
   })
   isOwnerCompany: boolean;
 
+  @Column({ type: 'uuid', nullable: true })
+  companyId: UUID;
+
   @ManyToOne(() => Company, company => company.users)
-  company: Company;
+  company: Relation<Company>;
 
   @Column({
     type: 'enum',

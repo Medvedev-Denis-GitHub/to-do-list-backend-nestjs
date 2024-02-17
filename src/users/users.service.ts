@@ -6,6 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { saltRounds } from '../constants';
 import * as bcrypt from 'bcrypt';
 import { ResponseUserDto } from './dto/response-user.dto';
+import { UUID } from '../types';
 
 @Injectable()
 export class UsersService {
@@ -15,7 +16,7 @@ export class UsersService {
   ) {}
 
   async create(dto: CreateUserDto): Promise<ResponseUserDto> {
-    const isExistUser = await this.findByUsername(dto.username);
+    const isExistUser = await this.find({ username: dto.username });
     if (isExistUser) {
       throw new HttpException('Пользователь с таким username же существует', HttpStatus.CONFLICT);
     }
@@ -25,7 +26,13 @@ export class UsersService {
     return this.usersRepository.save(dto);
   }
 
-  findByUsername(username: string): Promise<User> {
-    return this.usersRepository.findOneBy({ username });
+  // add type Where<...>
+  find(where: {
+    username?: string;
+    id?: UUID;
+    companyId?: UUID;
+    isOwnerCompany?: boolean;
+  }): Promise<User> {
+    return this.usersRepository.findOne({ where, relations: ['company'] });
   }
 }
