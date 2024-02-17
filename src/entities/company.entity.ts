@@ -1,7 +1,16 @@
-import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  Relation,
+} from 'typeorm';
 import { UUID } from '../types';
 import { User } from './user.entity';
 import { Project } from './project.entity';
+import { Length } from 'class-validator';
 
 @Entity()
 export class Company {
@@ -16,17 +25,29 @@ export class Company {
 
   @Column({
     type: 'varchar',
-    length: 1200,
+    length: 25,
+    unique: true,
   })
-  description: string;
+  @Length(5, 25)
+  tag: string;
+
+  @Column({
+    type: 'varchar',
+    length: 1200,
+    nullable: true,
+  })
+  description?: string;
+
+  @Column({ type: 'uuid', unique: true })
+  ownerId: UUID;
 
   @OneToOne(() => User, user => user.company)
   @JoinColumn()
-  owner: User;
+  owner: Relation<User>;
 
   @OneToMany(() => User, user => user.company)
-  users: User[];
+  users: Relation<User>[];
 
   @OneToMany(() => Project, project => project.company)
-  projects: Project[];
+  projects: Relation<Project>[];
 }

@@ -8,7 +8,7 @@
     "start": "nest start",
     "start:dev": "nest start --watch",
     "lint:fix": "eslint --ext ts --fix .",
-    "typeorm": "typeorm -d dist/src/config/orm.config.js",
+    "typeorm": "typeorm -d dist/config/orm.config.js",
     "migration:generate": "yarn run typeorm migration:generate",
     "migration:run": "yarn run typeorm migration:run",
     "migration:revert": "yarn run typeorm migration:revert"

@@ -13,7 +13,7 @@ export class AuthService {
   ) {}
 
   async validateUser(username: string, password: string) {
-    const user = await this.usersService.findByUsername(username);
+    const user = await this.usersService.find({ username });
     if (!user) {
       throw new BadRequestException('Неверный логин или пароль');
     }
@@ -27,13 +27,8 @@ export class AuthService {
   }
 
   async login(user: User): Promise<AuthResponseDto> {
-    const payload = {
-      id: user.id,
-      username: user.username,
-    };
-
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: this.jwtService.sign({ id: user.id }),
     };
   }
 }
