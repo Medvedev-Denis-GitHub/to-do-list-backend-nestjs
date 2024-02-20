@@ -10,14 +10,12 @@ import { UpdateCompanyDto } from './dto/update-company.dto';
 @Injectable()
 export class CompanyService {
   constructor(
-    @InjectRepository(Company)
-    private companyRepository: Repository<Company>,
-    @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    @InjectRepository(Company) private companyRepository: Repository<Company>,
+    @InjectRepository(User) private usersRepository: Repository<User>,
   ) {}
 
   async createCompany(dto: CreateCompanyDto, owner: User): Promise<Company> {
-    await this.isValidCompany(dto);
+    await this.isValidTagCompany(dto.tag);
 
     const company = await this.companyRepository.save({
       ...dto,
@@ -48,15 +46,17 @@ export class CompanyService {
       throw new BadRequestException('Компания не найдена');
     }
 
+    if (dto?.tag) {
+      await this.isValidTagCompany(dto.tag);
+    }
+
     return this.companyRepository.save({
       ...instance,
       ...dto,
     });
   }
 
-  private async isValidCompany(dto: CreateCompanyDto) {
-    const { tag } = dto;
-
+  private async isValidTagCompany(tag: string) {
     if (!this.isValidLengthTag(tag)) {
       throw new BadRequestException(
         'Тэг вашей компании должен быть не менее 5 символов и не больее 25',

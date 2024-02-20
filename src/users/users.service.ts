@@ -26,7 +26,7 @@ export class UsersService {
     return this.usersRepository.save(dto);
   }
 
-  // add type Where<...>
+  //todo add type Where<...>
   find(where: {
     username?: string;
     id?: UUID;

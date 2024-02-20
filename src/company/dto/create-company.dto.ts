@@ -23,6 +23,7 @@ export class CreateCompanyDto {
   @Length(1, 1200)
   @ApiProperty({
     type: String,
+    required: false,
     example: 'Самая лучшая компания',
     description: 'Описание компании',
   })
