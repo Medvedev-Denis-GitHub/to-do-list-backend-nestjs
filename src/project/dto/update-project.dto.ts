@@ -1,19 +1,20 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional } from 'class-validator';
 
-export class RequestProjectDto {
+export class UpdateProjectDto {
+  @IsOptional()
   @ApiProperty({
     type: String,
-    example: 'Телеграм бот такси',
+    nullable: true,
+    maximum: 50,
     description: 'Название проекта',
   })
-  title: string;
+  title?: string;
 
   @IsOptional()
   @ApiProperty({
     type: String,
-    required: false,
-    maximum: 1200,
+    nullable: true,
     description: 'Описание проекта',
   })
   description?: string;

@@ -1,11 +1,10 @@
-import { Relation } from 'typeorm';
 import { UUID } from '../../types';
 import { IsArray, IsUUID } from 'class-validator';
-import { Project } from '../../entities/project.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { ResponseUserDto } from '../../users/dto/response-user.dto';
 import { Type } from 'class-transformer';
 import { CreateCompanyDto } from './create-company.dto';
+import { ResponseProjectDto } from '../../project/dto/response-project.dto';
 
 export class ResponseCompanyDto extends CreateCompanyDto {
   @IsUUID()
@@ -27,7 +26,7 @@ export class ResponseCompanyDto extends CreateCompanyDto {
     description: 'Данные владельца компании',
   })
   @Type(() => ResponseUserDto)
-  owner: Relation<ResponseUserDto>;
+  owner: ResponseUserDto;
 
   @IsArray()
   @Type(() => ResponseUserDto)
@@ -36,8 +35,12 @@ export class ResponseCompanyDto extends CreateCompanyDto {
     isArray: true,
     description: 'Участники компании',
   })
-  users: Relation<ResponseUserDto>[];
+  users: ResponseUserDto[];
 
-  //todo add project dto
-  projects: Relation<Project>[];
+  @ApiProperty({
+    type: ResponseProjectDto,
+    isArray: true,
+    description: 'Проекты компании',
+  })
+  projects: ResponseProjectDto[];
 }
