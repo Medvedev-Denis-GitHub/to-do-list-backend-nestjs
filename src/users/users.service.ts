@@ -6,7 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { saltRounds } from '../constants';
 import * as bcrypt from 'bcrypt';
 import { ResponseUserDto } from './dto/response-user.dto';
-import { UUID } from '../types';
+import { RolesUserInCompany, UUID } from '../types';
 
 @Injectable()
 export class UsersService {
@@ -32,6 +32,7 @@ export class UsersService {
     id?: UUID;
     companyId?: UUID;
     isOwnerCompany?: boolean;
+    roleInCompany?: RolesUserInCompany;
   }): Promise<User> {
     return this.usersRepository.findOne({ where, relations: ['company'] });
   }

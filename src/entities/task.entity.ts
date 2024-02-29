@@ -1,4 +1,12 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { UUID } from '../types';
 import { Project } from './project.entity';
 import { User } from './user.entity';
@@ -25,6 +33,9 @@ export enum TaskPriorities {
 export class Task {
   @PrimaryGeneratedColumn('uuid')
   id: UUID;
+
+  @Column({ generated: 'increment', unique: true })
+  num: number;
 
   @ManyToOne(() => Project, project => project.tasks)
   @JoinColumn()
@@ -67,10 +78,10 @@ export class Task {
   })
   description: string;
 
-  @Column()
+  @CreateDateColumn()
   release: Date;
 
-  @Column()
+  @UpdateDateColumn()
   latestUpdate: Date;
 
   @Column()
