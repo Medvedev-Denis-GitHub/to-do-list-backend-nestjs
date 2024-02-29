@@ -1,24 +1,22 @@
 import { UUID } from '../../types';
-import { Company } from '../../entities/company.entity';
 import { Task } from '../../entities/task.entity';
 import { IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { Type } from 'class-transformer';
-import { ResponseCompanyDto } from '../../company/dto/response-company.dto';
 
 export class ResponseProjectDto {
   @ApiProperty({
     type: 'uuid',
+    example: 'ebda8a93-5e0c-4208-b7ff-a4010800894b',
     description: 'Id задачи в БД',
   })
   id: UUID;
 
   @ApiProperty({
-    type: Company, //todo add ResponseCompanyDto
-    description: 'Данные компании, которой принадлежит задача',
+    type: 'uuid',
+    example: 'ebda8a93-5e0c-4208-b7ff-a4010800894b',
+    description: 'Id компании',
   })
-  @Type(() => Company)
-  company: ResponseCompanyDto;
+  companyId: UUID;
 
   @ApiProperty({
     type: String,

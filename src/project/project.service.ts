@@ -16,7 +16,7 @@ export class ProjectService {
     private usersService: UsersService,
   ) {}
 
-  async deleteProject(id: UUID) {
+  async deleteProject(id: UUID): Promise<Project> {
     const instance = await this.projectRepository.findOneBy({ id });
     return this.projectRepository.remove(instance);
   }
@@ -28,16 +28,22 @@ export class ProjectService {
       roleInCompany: RolesUserInCompany.OWNER,
     });
 
-    return this.projectRepository.save({
+    const project = await this.projectRepository.save({
       ...dto,
       company,
     });
+
+    delete project.company;
+    return project;
   }
 
   async updateProject(id: UUID, dto: UpdateProjectDto): Promise<Project> {
     await this.projectRepository.update(id, dto);
 
-    return this.find({ id });
+    const project = await this.find({ id });
+
+    delete project.company;
+    return project;
   }
 
   //todo add type WhereOptions

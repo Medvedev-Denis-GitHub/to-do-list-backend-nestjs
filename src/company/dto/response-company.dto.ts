@@ -10,6 +10,7 @@ export class ResponseCompanyDto extends CreateCompanyDto {
   @IsUUID()
   @ApiProperty({
     type: 'uuid',
+    example: '40f1bf6f-6542-4171-bb22-22b1606d79c3',
     description: 'Уникальный id компании в БД',
   })
   id: UUID;
@@ -17,6 +18,7 @@ export class ResponseCompanyDto extends CreateCompanyDto {
   @IsUUID()
   @ApiProperty({
     type: 'uuid',
+    example: '40f1bf6f-6542-4171-bb22-22b1606d79c3',
     description: 'Id владельца компании',
   })
   ownerId: UUID;
@@ -31,14 +33,16 @@ export class ResponseCompanyDto extends CreateCompanyDto {
   @IsArray()
   @Type(() => ResponseUserDto)
   @ApiProperty({
-    type: ResponseUserDto,
+    type: () => ResponseUserDto,
     isArray: true,
     description: 'Участники компании',
   })
   users: ResponseUserDto[];
 
+  @IsArray()
+  @Type(() => ResponseProjectDto)
   @ApiProperty({
-    type: ResponseProjectDto,
+    type: () => ResponseProjectDto,
     isArray: true,
     description: 'Проекты компании',
   })
